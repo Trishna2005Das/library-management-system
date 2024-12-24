@@ -1,0 +1,82 @@
+Here is the same information without bold formatting, and formatted so you can copy the table easily:
+
+---
+
+### 1. GET  
+   - Purpose: Retrieves data from the server.
+   - Characteristics: 
+     - Data is sent in the URL (query parameters).
+     - It is idempotent, meaning multiple identical requests will yield the same result.
+   - Use Case: Fetching data like retrieving a user profile, product details, or a list of items.
+
+### 2. POST  
+   - Purpose: Sends data to the server to create a new resource or submit data.
+   - Characteristics: 
+     - Data is sent in the body of the request.
+     - It is not idempotent, meaning multiple identical requests can result in different outcomes (e.g., creating multiple records).
+   - Use Case: Creating new resources, such as creating a new user, submitting a form, or uploading files.
+
+### 3. PUT  
+   - Purpose: Updates an existing resource or creates a resource at a specific URL.
+   - Characteristics: 
+     - Replaces the entire resource with the provided data.
+     - It is idempotent, meaning multiple identical requests will yield the same result.
+   - Use Case: Updating a resource, like modifying a user profile or updating product details.
+
+### 4. PATCH  
+   - Purpose: Partially updates an existing resource.
+   - Characteristics: 
+     - Only the fields that need to be updated are sent in the request body.
+     - It is not necessarily idempotent.
+   - Use Case: Updating only specific fields, like changing a user's email address or updating the status of an order.
+
+### 5. DELETE  
+   - Purpose: Deletes a resource from the server.
+   - Characteristics: 
+     - It is idempotent, meaning deleting a resource multiple times has the same effect (the resource is still deleted).
+   - Use Case: Deleting a record, such as removing a user or deleting a product.
+
+### 6. HEAD  
+   - Purpose: Similar to GET, but it only retrieves the headers of the resource, not the body.
+   - Characteristics: 
+     - Used to check if a resource exists or to inspect metadata (e.g., content type, size, etc.).
+     - No body is returned in the response.
+   - Use Case: Checking the existence of a resource or fetching only the headers for a resource (without downloading its content).
+
+### 7. OPTIONS  
+   - Purpose: Describes the communication options for the target resource.
+   - Characteristics: 
+     - The server responds with a list of allowed HTTP methods for a given resource.
+     - It is used for CORS (Cross-Origin Resource Sharing) preflight requests.
+   - Use Case: Checking which HTTP methods are supported by a resource or server.
+
+### 8. TRACE  
+   - Purpose: Echoes back the received request for diagnostic purposes.
+   - Characteristics: 
+     - Used to trace the path a request takes to the destination server, which is helpful for debugging.
+     - Returns the request as it was received by the server.
+   - Use Case: Debugging and troubleshooting the request-response chain, often used by developers.
+
+### 9. CONNECT  
+   - Purpose: Establishes a tunnel to the server, typically used for SSL-encrypted connections.
+   - Characteristics: 
+     - It is often used in proxy servers to establish a connection between the client and the target server.
+     - The server sets up a TCP/IP connection with the client.
+   - Use Case: Used primarily by proxy servers for setting up a connection (e.g., SSL/TLS tunneling).
+
+---
+
+### Summary Table:
+
+| HTTP Method | Purpose                                               | Idempotent | Use Case                                                                                   |
+|-------------|-------------------------------------------------------|------------|--------------------------------------------------------------------------------------------|
+| GET         | Retrieves data from the server                        | Yes        | Fetching data like user profiles, product details, lists, etc.                             |
+| POST        | Sends data to the server to create or submit data     | No         | Creating a new resource, submitting a form, uploading files.                               |
+| PUT         | Updates or creates a resource                         | Yes        | Replacing or updating a resource completely (e.g., modifying user details).                |
+| PATCH       | Partially updates a resource                          | No         | Partially updating a resource (e.g., changing a user's email or order status).             |
+| DELETE      | Deletes a resource                                    | Yes        | Deleting a resource (e.g., removing a user or product).                                    |
+| HEAD        | Retrieves only the headers of a resource              | Yes        | Checking metadata (e.g., content length, content type) without fetching the resource body. |
+| OPTIONS     | Describes the communication options for a resource    | Yes        | Checking the supported HTTP methods for a resource or server (often used in CORS).         |
+| TRACE       | Echoes the received request for diagnostic purposes   | Yes        | Tracing the request path for debugging or troubleshooting.                                 |
+| CONNECT     | Establishes a tunnel to the server for SSL encryption | No         | Setting up a tunnel for secure communication, especially for proxies (e.g., SSL/TLS).      |
+

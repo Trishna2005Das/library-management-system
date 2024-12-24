@@ -1,75 +1,59 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date
+from sqlalchemy import Column, Integer, String, ForeignKey
 from database import Base
 from sqlalchemy.orm import relationship
+from datetime import date
 
 class Books(Base):
     __tablename__ = 'Books'
 
     Book_ID = Column(Integer, primary_key=True, index=True)
-    Title = Column(String)
-    AuthNo = Column(String)
-    Category = Column(String)
-    Edition = Column(String)
-    Price = Column(Float)
+    Name = Column(String)
+    Quantity = Column(Integer)
+    Author = Column(String)
+    Genre = Column(String)
+    PublicationYear = Column(Integer)
     ISBN = Column(String)
+    
+    issues=relationship("Issues",back_populates="book")
 
-class Readers(Base):
-    __tablename__ = 'Readers'
+class Students(Base):
+    __tablename__ = 'Students'
 
-    User_ID = Column(Integer, primary_key=True, index=True)
-    Firstname = Column(String)
-    Lastname = Column(String)
-    Email = Column(String)
-    Address = Column(String)
-    Phone_No = Column(String)
-    login=relationship("Authentication",back_populates="enter")
-
-class Staff(Base):
-    __tablename__ = 'Staff'
-
-    Staff_ID = Column(Integer, primary_key=True, index=True)
+    Student_ID = Column(Integer, primary_key=True, index=True)
     Name = Column(String)
+    Department = Column(String)
+    YearOfStudy = Column(Integer)
+    ContactNumber = Column(String)
+    issues=relationship("Issues",back_populates="student")
 
-class Publisher(Base):
-    __tablename__ = 'Publisher'
+class Librarians(Base):
+    __tablename__ = 'Librarians'
 
-    Publisher_ID = Column(Integer, primary_key=True, index=True)
+    Librarian_ID = Column(Integer, primary_key=True, index=True)
     Name = Column(String)
-    YearOfPublication = Column(Integer)
+    Designation = Column(String)
+    ContactNumber = Column(String)
 
-class Authentication(Base):
-    __tablename__ = 'Authentication'
+class Issues(Base):
+    __tablename__ = 'Issues'
 
-    LoginID = Column(Integer, primary_key=True, index=True)
-    Password = Column(String)
-    User_ID = Column(Integer, ForeignKey('Readers.User_ID'))
+    Issue_ID = Column(Integer, primary_key=True, index=True)
+    Student_ID = Column(Integer, ForeignKey('Students.Student_ID'))
+    Book_ID = Column(Integer, ForeignKey('Books.Book_ID'))
+    IssueDate = Column(date)
+    DueDate = Column(date)
+    ReturnDate = Column(date)
+    books=relationship("Book",back_populates="issues")
+    students=relationship("Student",back_populates="issues")
+    Librarian_ID = Column(Integer, ForeignKey(' Librarians.Librarian_ID'))
     
-    enter=relationship("Authentication",back_populates="login")
+#     Each relationship operates independently because:
+# The issues in Book filters rows in the Issue table using book_id.
+# The issues in Student filters rows in the Issue table using student_id.
 
-class Reports(Base):
-    __tablename__ = 'Reports'
+# back_populates Ensures Consistency:
 
-    Reg_No = Column(Integer, primary_key=True, index=True)
-    Book_No = Column(Integer, ForeignKey('Books.Book_ID'))
-    Issue_Return = Column(String)
-    User_ID = Column(Integer, ForeignKey('Readers.User_ID'))
-    Staff_ID = Column(Integer, ForeignKey('Staff.Staff_ID'))
-    
-    book = relationship("Books")
-    reader = relationship("Readers")
-    staff = relationship("Staff")
-
-class Transactions(Base):
-    __tablename__ = 'Transactions'
-
-    Transaction_ID = Column(Integer, primary_key=True, index=True)
-    ReserveDate = Column(Date)
-    Return_Date = Column(Date)
-    Due_Date = Column(Date)
-    Book_No = Column(Integer, ForeignKey('Books.Book_ID'))
-    User_ID = Column(Integer, ForeignKey('Readers.User_ID'))
-    
-    book = relationship("Books")
-    reader = relationship("Readers")
-
-    
+# back_populates ensures that the relationships are bidirectional.
+# In the Issue class:
+# student = relationship("Student", back_populates="issues") ties issues in Student to the student attribute in Issue.
+# book = relationship("Book", back_populates="issues") ties issues in Book to the book attribute in Issue.
