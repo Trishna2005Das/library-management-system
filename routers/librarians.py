@@ -8,19 +8,16 @@ router=APIRouter(
     prefix="/ librarians",
     tags=[' Librarians Table'])
 
-
-
-@router.post('/', response_model=schemas.LibrarianBase)
-def add_librarian(request: schemas.LibrarianBase, db: Session = Depends(get_db)):
-    return librarians.add_librarian(request, db)
-
-
 @router.get('/',response_model=List[schemas.LibrarianBase])
 def librarian_all(db:Session=Depends(get_db)):
     return librarians.get_librarians(db)
 
+@router.post('/', response_model=schemas.ShowLibrarian)
+def add_librarian(request: schemas.LibrarianBase, db: Session = Depends(get_db)):
+    return librarians.add_librarian(request, db)
 
-@router.put('/librarians/{id}', response_model=schemas.LibrarianBase)
+
+@router.put('/librarians/{id}', response_model=schemas.ShowLibrarian)
 def update_librarian(id:int, request: schemas.LibrarianBase, db: Session = Depends(get_db)):
     return librarians.update_librarian(id, request, db)
 

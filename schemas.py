@@ -37,3 +37,56 @@ class IssueBase(BaseModel):
     IssueDate: date 
     DueDate: date   
     ReturnDate: Optional[date] #it is optional as it will remain empty till the book is returned
+
+class ShowBook(BaseModel):
+    Name :str
+    Author :str
+    Genre :str
+    PublicationYear :int
+    ISBN :str
+
+    class Config:
+        from_attributes = True
+
+class ShowStudent(BaseModel):
+    Name :str
+    Department :str
+    YearOfStudy :int
+
+    class Config:
+        from_attributes = True
+
+class ShowLibrarian(BaseModel):
+    Name: str
+    Designation: str
+
+    class Config:
+        from_attributes = True
+
+class ShowLibrary(BaseModel):
+    name: str
+    address: str
+    contact_number: str
+
+    class Config:
+        from_attributes = True
+
+class ShowIssue(BaseModel):
+    
+    IssueDate: date 
+    DueDate: date   
+   
+    class Config:
+        from_attributes = True
+
+class Login(BaseModel):
+    username: str
+    password: str
+    #JWT needs username as the indentifier of the user but it is the same as email
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str]=None

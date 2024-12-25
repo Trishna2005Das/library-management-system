@@ -10,16 +10,16 @@ router=APIRouter(
 
 
 
-@router.get('/check_issue',response_model=List[schemas.IssueBase])
+@router.get('/',response_model=List[schemas.ShowIssue])
 def issue_all(db:Session=Depends(get_db)):
     return issues.get_issues(db)
 
 
-@router.post('/issues', response_model=schemas.IssueBase)
+@router.post('/', response_model=schemas.ShowIssue)
 def add_issue(request: schemas.IssueBase, db: Session = Depends(get_db)):
     return issues.add_issue(request, db)
 
-@router.put('/issues/{id}', response_model=schemas.IssueBase)
+@router.put('/issues/{id}', response_model=schemas.ShowIssue)
 def update_issue(id:int, request: schemas.IssueBase, db: Session = Depends(get_db)):
     return issues.update_issue(id, request, db)
 

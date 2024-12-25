@@ -31,8 +31,8 @@ class Librarians(Base):
 
     Librarian_ID = Column(Integer, primary_key=True, index=True)
     Name = Column(String)
-    Designation = Column(String)
-    ContactNumber = Column(String)
+    email = Column(String)
+    password = Column(String)
 
 class Issues(Base):
     __tablename__ = 'Issues'

@@ -8,16 +8,16 @@ router=APIRouter(
     prefix="/ students",
     tags=[' Students Table'])
 
-@router.get('/check',response_model=List[schemas.StudentBase])
+@router.get('/',response_model=List[schemas.StudentBase])
 def student_all(db:Session=Depends(get_db)):
     return students.get_students(db)
 
-@router.post('/create', response_model=schemas.StudentBase)
+@router.post('/', response_model=schemas.ShowStudent)
 def add_student(request: schemas.StudentBase, db: Session = Depends(get_db)):
     return students.add_student(request, db)
 
 
-@router.put('/students/{id}', response_model=schemas.StudentBase)
+@router.put('/students/{id}', response_model=schemas.ShowStudent)
 def update_student(id:int, request: schemas.StudentBase, db: Session = Depends(get_db)):
     return students.update_student(id, request, db)
 

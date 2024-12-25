@@ -8,14 +8,14 @@ router=APIRouter(
     prefix="/books",
     tags=['Books Table'])
 
-@router.get('/check_book',response_model=List[schemas.Bookbase])
+@router.get('/',response_model=List[schemas.Bookbase])
 def book_all(db:Session=Depends(get_db)):
     return books.get_books(db)
-@router.post('/books', response_model=schemas.Bookbase)
+@router.post('/', response_model=schemas.ShowBook)
 def add_book(request: schemas.Bookbase, db: Session = Depends(get_db)):
     return books.add_book(request, db)
 
-@router.put('/books/{id}', response_model=schemas.Bookbase)
+@router.put('/books/{id}', response_model=schemas.ShowBook)
 def update_book(id:int, request: schemas.Bookbase, db: Session = Depends(get_db)):
     return books.update_book(id, request, db)
 
