@@ -26,8 +26,8 @@ class StudentBase(BaseModel):
 class LibrarianBase(BaseModel):
     Librarian_ID: int
     Name: str
-    Designation: str
-    ContactNumber: str
+    email: str
+    password: str
 
 
 class IssueBase(BaseModel):

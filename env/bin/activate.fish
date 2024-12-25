@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /media/trishna-das/9C9C706C9C704336/trish-drive/lms/env
+set -gx VIRTUAL_ENV /home/trishna-das/Desktop/library-management-system/env
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH

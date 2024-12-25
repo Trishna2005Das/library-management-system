@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from repository import librarians
 get_db=database.get_db
 router=APIRouter(
-    prefix="/ librarians",
+    prefix="/librarians",
     tags=[' Librarians Table'])
 
 @router.get('/',response_model=List[schemas.LibrarianBase])
@@ -17,10 +17,10 @@ def add_librarian(request: schemas.LibrarianBase, db: Session = Depends(get_db))
     return librarians.add_librarian(request, db)
 
 
-@router.put('/librarians/{id}', response_model=schemas.ShowLibrarian)
+@router.put('/{id}', response_model=schemas.ShowLibrarian)
 def update_librarian(id:int, request: schemas.LibrarianBase, db: Session = Depends(get_db)):
     return librarians.update_librarian(id, request, db)
 
-@router.delete('/librarians/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_librarian(id:int, db: Session = Depends(get_db)):
     return librarians.delete_librarian(id, db)

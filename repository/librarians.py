@@ -2,7 +2,7 @@ from fastapi import APIRouter,Depends,status,HTTPException
 from typing import List
 import schemas,database,models
 from sqlalchemy.orm import Session
-# from hashing import Hash
+from hashing import Hash
 
 def get_librarians(db:Session):
     librarian_list=db.query(models.Librarians).all()
@@ -13,8 +13,7 @@ def add_librarian(request: schemas.LibrarianBase, db: Session):
     new_librarian = models.Librarian(
         Librarian_ID=request.Librarian_ID,
         Name=request.Name,
-        Designation=request.Designation,
-        ContactNumber=request.ContactNumber
+        email=request.email,password=Hash.bycrpt(request.password)
     )
     db.add(new_librarian)
     db.commit()

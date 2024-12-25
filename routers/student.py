@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from repository import students
 get_db=database.get_db
 router=APIRouter(
-    prefix="/ students",
+    prefix="/students",
     tags=[' Students Table'])
 
 @router.get('/',response_model=List[schemas.StudentBase])
@@ -17,11 +17,11 @@ def add_student(request: schemas.StudentBase, db: Session = Depends(get_db)):
     return students.add_student(request, db)
 
 
-@router.put('/students/{id}', response_model=schemas.ShowStudent)
+@router.put('/{id}', response_model=schemas.ShowStudent)
 def update_student(id:int, request: schemas.StudentBase, db: Session = Depends(get_db)):
     return students.update_student(id, request, db)
 
 
-@router.delete('/students/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_student(id:int, db: Session = Depends(get_db)):
     return students.delete_student(id, db)

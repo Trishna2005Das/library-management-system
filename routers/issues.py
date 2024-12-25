@@ -19,10 +19,10 @@ def issue_all(db:Session=Depends(get_db)):
 def add_issue(request: schemas.IssueBase, db: Session = Depends(get_db)):
     return issues.add_issue(request, db)
 
-@router.put('/issues/{id}', response_model=schemas.ShowIssue)
+@router.put('/{id}', response_model=schemas.ShowIssue)
 def update_issue(id:int, request: schemas.IssueBase, db: Session = Depends(get_db)):
     return issues.update_issue(id, request, db)
 
-@router.delete('/issues/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_issue(id:int, db: Session = Depends(get_db)):
     return issues.delete_issue(id, db)

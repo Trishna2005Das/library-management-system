@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey,Date
 from database import Base
 from sqlalchemy.orm import relationship
-from datetime import date
+
 
 class Books(Base):
     __tablename__ = 'Books'
@@ -33,6 +33,7 @@ class Librarians(Base):
     Name = Column(String)
     email = Column(String)
     password = Column(String)
+    issues=relationship("Issues",back_populates="librarian")
 
 class Issues(Base):
     __tablename__ = 'Issues'
@@ -40,12 +41,15 @@ class Issues(Base):
     Issue_ID = Column(Integer, primary_key=True, index=True)
     Student_ID = Column(Integer, ForeignKey('Students.Student_ID'))
     Book_ID = Column(Integer, ForeignKey('Books.Book_ID'))
-    IssueDate = Column(date)
-    DueDate = Column(date)
-    ReturnDate = Column(date)
-    books=relationship("Book",back_populates="issues")
-    students=relationship("Student",back_populates="issues")
-    Librarian_ID = Column(Integer, ForeignKey(' Librarians.Librarian_ID'))
+    Librarian_ID = Column(Integer, ForeignKey('Librarians.Librarian_ID'))
+    IssueDate = Column(Date)
+    DueDate = Column(Date)
+    ReturnDate = Column(Date)
+    books=relationship("Books",back_populates="issues")
+    students=relationship("Students",back_populates="issues")
+    librarians=relationship("Librarians",back_populates="issues")
+    
+    
     
 #     Each relationship operates independently because:
 # The issues in Book filters rows in the Issue table using book_id.

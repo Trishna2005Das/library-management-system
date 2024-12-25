@@ -15,10 +15,10 @@ def book_all(db:Session=Depends(get_db)):
 def add_book(request: schemas.Bookbase, db: Session = Depends(get_db)):
     return books.add_book(request, db)
 
-@router.put('/books/{id}', response_model=schemas.ShowBook)
+@router.put('/{id}', response_model=schemas.ShowBook)
 def update_book(id:int, request: schemas.Bookbase, db: Session = Depends(get_db)):
     return books.update_book(id, request, db)
 
-@router.delete('/books/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_book(id:int, db: Session = Depends(get_db)):
     return books.delete_book(id, db)
